@@ -141,9 +141,9 @@ class requestObj {
             $debug = curl_getinfo($ch);
             if ($responseCode !== 200) {
                 if ($this->debug) {
-                    throw new Exception($this->codes[$responseCode]);
-                } else {
                     throw new Exception('Something wrong with service FITMOST with code '.$responseCode.' while requesting to '.$url.' with '.$method.' method. Payload: '.print_r($payload,true));
+                } else {
+                    throw new Exception($this->codes[$responseCode]);
                 }
             } else if ($responseCode == 200 && !$output) {
                 $output = [
