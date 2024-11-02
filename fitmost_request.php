@@ -40,7 +40,7 @@ class requestObj {
     public $meta;
     public $url,$responseCode;
     private $cacheFile = __DIR__.'/cache/fitmost_requests.cache';
-    private $defaultTtl = 300; # time of cache livings
+    private $defaultTtl = 300; //Время жизни кэша в минутах (по умолчанию GET запросы кешируются)
     private $cache = [];
     public $noCache = false;
     
@@ -119,7 +119,6 @@ class requestObj {
                 break;
         }
         curl_setopt($ch, CURLOPT_URL,$url);
-//        return ['url'=>$url];
         
         if ($method == 'GET' && $this->fromCache($url, $payload) && !$this->noCache) {
             $output = json_encode($this->fromCache($url, $payload));
@@ -153,12 +152,6 @@ class requestObj {
             }
              curl_close($ch);
 
-//            if($method == 'GET') {
-//                $output = json_decode($output,true);
-//                $this->toCache($url, $payload, $output);
-//    //            $output['data'][] = $url;
-//                $output = json_encode($output);
-//            }
             
         }
         if (@is_array(json_decode($output))) {
